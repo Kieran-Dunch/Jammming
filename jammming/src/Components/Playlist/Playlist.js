@@ -1,10 +1,11 @@
+import TrackList from '../TrackList/TrackList'
 import './Playlist.css'
 
 export default function Playlist() {
   return (
     <div className="Playlist">
       <input defaultValue={"New Playlist"} />
-      {/* <!-- Add a TrackList component --> */}
+      <TrackList />
       <button className="Playlist-save">SAVE TO SPOTIFY</button>
     </div>
   )
