@@ -1,9 +1,14 @@
+import Track from '../Track/Track'
 import './TrackList.css'
 
-export default function TrackList() {
+export default function TrackList(props) {
+  const tracks = props.tracks
+  console.log(tracks);
   return (
     <div className="TrackList">
-      {/* <!-- You will add a map method that renders a set of Track components  --> */}
+      {tracks.map((track) => {
+        return <Track key={track.id} track={track} />
+      })}
     </div>
   )
 }
