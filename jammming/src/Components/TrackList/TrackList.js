@@ -6,7 +6,7 @@ export default function TrackList(props) {
   return (
     <div className="TrackList">
       {tracks.map((track) => {
-        return <Track key={track.id} track={track} />
+        return <Track isRemoval={props.isRemoval} key={track.id} track={track} onAdd={props.onAdd} />
       })}
     </div>
   )
