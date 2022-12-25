@@ -13,16 +13,19 @@ export default class App extends Component {
       playlistTracks: [{ id: 2, name: "TIME TO SHINE it", artist: "The BooBoos", album: "In the dark" }]
     }
     this.addTrack = this.addTrack.bind(this)
+    this.removeTrack = this.removeTrack.bind(this)
   }
 
   addTrack(track) {
-    console.log(track);
-    console.log(this.state.playlistTracks);
-
     if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
       return;
     }
     this.setState({ playlistTracks: [...this.state.playlistTracks, track] })
+  }
+
+  removeTrack(track) {
+    const newTracks = this.state.playlistTracks.filter(savedTrack => savedTrack.id !== track.id)
+    this.setState({ playlistTracks: newTracks })
   }
 
   render() {
@@ -33,7 +36,7 @@ export default class App extends Component {
           <SearchBar />
           <div className="App-playlist">
             <SearchResults onAdd={this.addTrack} searchResults={this.state.searchResults} />
-            <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
+            <Playlist playlistName={this.state.playlistName} onRemove={this.removeTrack} playlistTracks={this.state.playlistTracks} />
           </div>
         </div>
       </div>);
