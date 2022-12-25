@@ -12,14 +12,17 @@ export default class App extends Component {
       playlistName: "Kieran's fun tunes",
       playlistTracks: [{ id: 2, name: "TIME TO SHINE it", artist: "The BooBoos", album: "In the dark" }]
     }
-    this.addTrack.bind(this)
+    this.addTrack = this.addTrack.bind(this)
   }
 
   addTrack(track) {
+    console.log(track);
+    console.log(this.state.playlistTracks);
+
     if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
       return;
     }
-    this.setState({ playlistTracks: [...track] })
+    this.setState({ playlistTracks: [...this.state.playlistTracks, track] })
   }
 
   render() {

@@ -1,20 +1,29 @@
 import './Track.css'
+import React, { Component } from 'react'
 
-export default function Track(props) {
+export default class Track extends Component {
 
-  const track = props.track
+  constructor(props) {
+    super(props)
+    this.addTrack = this.addTrack.bind(this)
+  }
 
-  const addTrack = () => {
-    props.onAdd(track)
+  addTrack() {
+    this.props.onAdd(this.props.track)
   };
 
-  return (
-    <div className="Track">
-      <div className="Track-information">
-        <h3>{track.name}</h3>
-        <p>{track.artist} | {track.album}</p>
+  render() {
+
+    const track = this.props.track
+
+    return (
+      <div className="Track">
+        <div className="Track-information">
+          <h3>{track.name}</h3>
+          <p>{track.artist} | {track.album}</p>
+        </div>
+        <button className="Track-action" onClick={this.addTrack}>{this.props.isRemoval ? "-" : "+"}</button>
       </div>
-      <button className="Track-action" onClick={addTrack}>{props.isRemoval ? "-" : "+"}</button>
-    </div>
-  )
+    )
+  }
 }
