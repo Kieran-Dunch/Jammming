@@ -16,35 +16,40 @@ export default class App extends Component {
     this.removeTrack = this.removeTrack.bind(this)
     this.updatePlaylistName = this.updatePlaylistName.bind(this)
     this.savePlaylist = this.savePlaylist.bind(this)
-  }
+    this.search = this.search.bind(this)
+  };
 
   addTrack(track) {
     if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
       return;
     }
     this.setState({ playlistTracks: [...this.state.playlistTracks, track] })
-  }
+  };
 
   removeTrack(track) {
     const newTracks = this.state.playlistTracks.filter(savedTrack => savedTrack.id !== track.id)
     this.setState({ playlistTracks: newTracks })
-  }
+  };
 
   updatePlaylistName(name) {
     this.setState({ playlistName: name })
-  }
+  };
 
   savePlaylist() {
     const trackURIS = this.state.playlistTracks.map((track) => { return track.name })
     console.log(trackURIS);
-  }
+  };
+
+  search(query) {
+    console.log(query);
+  };
 
   render() {
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar />
+          <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults onAdd={this.addTrack} searchResults={this.state.searchResults} />
             <Playlist onSave={this.savePlaylist} onNameChange={this.updatePlaylistName} playlistName={this.state.playlistName} onRemove={this.removeTrack} playlistTracks={this.state.playlistTracks} />
