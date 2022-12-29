@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Spotify } from '../../util/Spotify';
 import Playlist from '../Playlist/Playlist';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
@@ -41,7 +42,8 @@ export default class App extends Component {
   };
 
   search(query) {
-    console.log(query);
+    const tracks = Spotify.search(query)
+    this.setState({ SearchResults: tracks })
   };
 
   render() {
