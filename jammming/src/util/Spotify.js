@@ -10,29 +10,29 @@ export const Spotify = {
       return accessToken;
     }
     if (window.location.href.match(/access_token=([^&]*)/) && window.location.href.match(/expires_in=([^&]*)/)) {
-      // this line is a problem
-      const params = new URLSearchParams(window.location.search)
-      console.log(params);
-      accessToken = params.get('access_token')
-      let expiresIn = params.get('expires_in')
+      // look at tutorial for this one
+      const params = window.location.href.split('#')[1].split('&')
+      accessToken = params[0].split('=')[1]
+      let expiresIn = params[2].split('=')[1]
       window.setTimeout(() => accessToken = '', expiresIn * 1000);
       window.history.pushState('Access Token', null, '/');
     }
-    window.location.replace(`https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirect_URI}`)
+    if (accessToken === undefined && !window.location.href.match(/access_token=([^&]*)/)) {
+      window.location.replace(`https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirect_URI}`)
+    }
   },
 
-  search(searchTerm) {
+  async search(searchTerm) {
     this.getAccessToken()
-    return fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, { headers: { Authorization: `Bearer ${accessToken}` } })
+    const tracks = await fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, { headers: { Authorization: `Bearer ${accessToken}` } })
       .then((response) => {
-        return response.json
+        return response.json()
       })
       .then((data) => {
-        // console.log(data);
-        if (data.items === undefined) {
+        if (data.tracks.items === undefined) {
           return [];
         }
-        return data.items.map((track) => {
+        return data.tracks.items.map((track) => {
           return {
             id: track.id,
             name: track.name,
@@ -42,5 +42,6 @@ export const Spotify = {
           }
         })
       })
+    return tracks;
   }
 }
