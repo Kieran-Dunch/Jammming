@@ -42,10 +42,10 @@ export default class App extends Component {
   };
 
   async search(query) {
-    console.log(this.state.SearchResults);
+    console.log(this.state.searchResults);
     const tracks = await Spotify.search(query)
-    this.setState({ SearchResults: tracks })
-    console.log(this.state.SearchResults);
+    this.setState({ searchResults: tracks })
+    console.log(this.state.searchResults);
   };
 
   render() {

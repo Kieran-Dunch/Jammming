@@ -20,12 +20,13 @@ export default class Track extends Component {
   render() {
 
     const track = this.props.track
+    console.log(track);
 
     return (
       <div className="Track">
         <div className="Track-information">
           <h3>{track.name}</h3>
-          <p>{track.artist} | {track.album}</p>
+          <p>{track.artist} | {track.album.name}</p>
         </div>
         {!this.props.isRemoval && <button className="Track-action" onClick={this.addTrack}>+</button>}
         {this.props.isRemoval && <button className="Track-action" onClick={this.removeTrack}>-</button>}

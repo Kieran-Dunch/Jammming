@@ -3,7 +3,7 @@ import './SearchResults.css'
 
 export default function SearchResults(props) {
 
-  console.log(props.SearchResults);
+  console.log(props.searchResults);
   return (
     <div className="SearchResults">
       <h2>Results</h2>
