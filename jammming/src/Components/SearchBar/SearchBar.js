@@ -6,7 +6,7 @@ export default class SearchBar extends Component {
     super(props)
     this.search = this.search.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
-    this.state = { query: "testing" }
+    this.state = { query: "" }
   }
 
   handleQueryChange(e) {

@@ -9,9 +9,9 @@ export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      searchResults: [{ id: 1, name: "You got it", artist: "Hello Artist", album: "Album time" }],
-      playlistName: "Kieran's fun tunes",
-      playlistTracks: [{ id: 2, name: "TIME TO SHINE it", artist: "The BooBoos", album: "In the dark" }]
+      searchResults: [],
+      playlistName: "New Playlist",
+      playlistTracks: []
     }
     this.addTrack = this.addTrack.bind(this)
     this.removeTrack = this.removeTrack.bind(this)
@@ -37,15 +37,14 @@ export default class App extends Component {
   };
 
   savePlaylist() {
-    const trackURIS = this.state.playlistTracks.map((track) => { return track.name })
-    console.log(trackURIS);
+    const trackURIS = this.state.playlistTracks.map(track => track.uri)
+    Spotify.savePlaylist(this.state.playlistName, trackURIS).then(() => { this.setState({ playlistName: 'New Playlist', playlistTracks: [] }) })
   };
 
   async search(query) {
-    console.log(this.state.searchResults);
-    const tracks = await Spotify.search(query)
-    this.setState({ searchResults: tracks })
-    console.log(this.state.searchResults);
+    Spotify.search(query).then((results) => {
+      this.setState({ searchResults: results })
+    })
   };
 
   render() {

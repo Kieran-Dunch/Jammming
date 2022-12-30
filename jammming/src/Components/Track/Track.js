@@ -20,7 +20,6 @@ export default class Track extends Component {
   render() {
 
     const track = this.props.track
-    console.log(track);
 
     return (
       <div className="Track">
