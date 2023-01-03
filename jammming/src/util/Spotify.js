@@ -15,7 +15,7 @@ export const Spotify = {
     if (accessTokenMatch && expiresInMatch) {
       accessToken = accessTokenMatch[1]
       const expiresIn = Number(expiresInMatch[1])
-      window.setTimeout(() => accessToken = '', expiresIn * 1000);
+      window.setTimeout(() => accessToken = '', expiresIn * 10000);
       window.history.pushState('Access Token', null, '/');
       return accessToken
     } else {
@@ -55,6 +55,7 @@ export const Spotify = {
       .then((response) => {
         return response.json()
       }).then((data) => {
+        console.log(data)
         userId = data.id
       })
 
@@ -67,10 +68,8 @@ export const Spotify = {
     ).then((response) => {
       return response.json()
     }).then((data) => {
-      console.log(data);
-      data.id = playlistId
+      playlistId = data.id;
     })
-    console.log(playlistId);
 
     await fetch(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`,
       {
