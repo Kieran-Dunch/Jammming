@@ -1,6 +1,6 @@
 let accessToken;
 const client_id = "36e71b4be2834f3bae7e3479ae67bd0b";
-const redirect_URI = "http://localhost:3000/";
+const redirect_URI = "https://kierans-playlist-maker.surge.sh/";
 
 
 export const Spotify = {
