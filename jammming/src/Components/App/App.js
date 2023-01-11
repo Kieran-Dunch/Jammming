@@ -42,6 +42,7 @@ export default class App extends Component {
   };
 
   async search(query) {
+    localStorage.setItem('query', query)
     Spotify.search(query).then((results) => {
       this.setState({ searchResults: results })
     })
